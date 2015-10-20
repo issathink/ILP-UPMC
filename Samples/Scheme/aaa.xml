@@ -1,0 +1,10 @@
+<program><!-- test:name description='invocation primitive print (booleen)' -->
+	<aMoinsQue>
+		<condition>
+		    <boolean value="false" />
+		</condition>
+		<consequence>
+		    <integer value="3" />
+		</consequence>
+	</aMoinsQue>
+</program>

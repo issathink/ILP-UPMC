@@ -4,7 +4,7 @@
 		    <boolean value="false" />
 		</condition>
 		<consequence>
-		    <integer value="3" />
+		    <integer value="2" />
 		</consequence>
 	</aMoinsQue>
 </program>

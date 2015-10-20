@@ -1,24 +1,28 @@
 package com.paracamplus.ilp1.ilp1tme4.bete.compiler;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
 
+import com.paracamplus.ilp1.compiler.GlobalVariableEnvironment;
+import com.paracamplus.ilp1.compiler.GlobalVariableStuff;
+import com.paracamplus.ilp1.compiler.OperatorEnvironment;
+import com.paracamplus.ilp1.compiler.OperatorStuff;
+import com.paracamplus.ilp1.compiler.interfaces.IGlobalVariableEnvironment;
+import com.paracamplus.ilp1.compiler.interfaces.IOperatorEnvironment;
+import com.paracamplus.ilp1.compiler.optimizer.IdentityOptimizer;
 import com.paracamplus.ilp1.ilp1tme4.bete.ASTfactory;
 import com.paracamplus.ilp1.ilp1tme4.bete.IParserAMoinsQueFactory;
 import com.paracamplus.ilp1.ilp1tme4.bete.ParserAMoinsQue;
+import com.paracamplus.ilp1.interfaces.IASTprogram;
 import com.paracamplus.ilp1.parser.IParser;
+import com.paracamplus.ilp1.tools.FileTool;
+import com.paracamplus.ilp1.tools.Input;
+import com.paracamplus.ilp1.tools.InputFromFile;
+import com.paracamplus.ilp1.tools.ProgramCaller;
 
 
 
@@ -75,8 +79,22 @@ public class CompilerTest {
 		pc.setVerbose();
 		pc.run();
 		assertEquals("Comparing return code", 0, pc.getExitValue());
-		String executionPrinting = pc.getStdout().trim();
+		// String executionPrinting = pc.getStdout().trim();
 		// checkPrintingAndResult(executionPrinting);
 	}
+	
+	public static File changeSuffix(File file, String suffix) {
+        String parent = file.getParent();
+        String name = file.getName();
+        String basename;
+        int dotIndex = name.lastIndexOf('.');
+        if (dotIndex >= 0) {
+            basename = name.substring(0, dotIndex);
+        } else {
+            basename = name;
+        }
+        String newName = parent + File.separator + basename + '.' + suffix;
+        return new File(newName);
+    }
 
 }

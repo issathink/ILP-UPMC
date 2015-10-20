@@ -1,7 +1,15 @@
 package com.paracamplus.ilp1.ilp1tme4.bete.compiler;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Set;
+
 import com.paracamplus.ilp1.compiler.AssignDestination;
 import com.paracamplus.ilp1.compiler.CompilationException;
+import com.paracamplus.ilp1.compiler.FreeVariableCollector;
+import com.paracamplus.ilp1.compiler.NoDestination;
+import com.paracamplus.ilp1.compiler.interfaces.IASTCglobalVariable;
 import com.paracamplus.ilp1.compiler.interfaces.IASTCprogram;
 import com.paracamplus.ilp1.compiler.interfaces.IGlobalVariableEnvironment;
 import com.paracamplus.ilp1.compiler.interfaces.IOperatorEnvironment;
@@ -17,6 +25,7 @@ public class Compiler extends com.paracamplus.ilp1.compiler.Compiler implements
 		super(ioe, igve);
 	}
 
+	@Override
 	public IASTCprogram normalize(IASTprogram program)
 			throws CompilationException {
 		INormalizationFactory nf = new NormalizationFactory();
@@ -24,6 +33,32 @@ public class Compiler extends com.paracamplus.ilp1.compiler.Compiler implements
 		IASTCprogram newprogram = normalizer.transform(program);
 		return newprogram;
 	}
+	
+	@Override
+    public String compile(IASTprogram program) 
+            throws CompilationException {
+        
+        IASTCprogram newprogram = normalize(program);
+        newprogram = optimizer.transform(newprogram);
+
+        GlobalVariableCollector gvc = new GlobalVariableCollector();
+        Set<IASTCglobalVariable> gvs = gvc.analyze(newprogram);
+        newprogram.setGlobalVariables(gvs);
+        
+        //FreeVariableCollector fvc = new FreeVariableCollector(newprogram);
+        //newprogram = fvc.analyze();
+      
+        Context context = new Context(NoDestination.NO_DESTINATION);
+        StringWriter sw = new StringWriter();
+        try {
+            out = new BufferedWriter(sw);
+            visit(newprogram, context);
+            out.flush();
+        } catch (IOException exc) {
+            throw new CompilationException(exc);
+        }
+        return sw.toString();
+    }
 
 	@Override
 	public Void visit(IASTaMoinsQue iast, Context context)

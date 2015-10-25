@@ -32,8 +32,6 @@ public class ASTdernier extends ASTexpression implements IASTdernier,
 		return this.accept((IASTvisitor<Result, Data, Anomaly>) visitor, data);
 	}
 
-	
-
 	@Override
 	public String getEtiquette() {
 		return etiquette;

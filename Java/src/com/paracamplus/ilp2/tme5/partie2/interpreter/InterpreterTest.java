@@ -1,10 +1,4 @@
-/* *****************************************************************
- * ILP9 - Implantation d'un langage de programmation.
- * by Christian.Queinnec@paracamplus.com
- * See http://mooc.paracamplus.com/ilp9
- * GPL version 3
- ***************************************************************** */
-package com.paracamplus.ilp2.tme5;
+package com.paracamplus.ilp2.tme5.partie2.interpreter;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -31,7 +25,10 @@ import com.paracamplus.ilp1.interpreter.interfaces.IOperatorEnvironment;
 import com.paracamplus.ilp1.tools.Input;
 import com.paracamplus.ilp1.tools.InputFromFile;
 import com.paracamplus.ilp2.interfaces.IASTprogram;
-import com.paracamplus.ilp2.tme5.interpreter.Interpreter;
+import com.paracamplus.ilp2.tme5.DernierException;
+import com.paracamplus.ilp2.tme5.SuivantException;
+import com.paracamplus.ilp2.tme5.partie2.Parser;
+import com.paracamplus.ilp2.tme5.partie2.ParserFactory;
 
 public class InterpreterTest extends
 		com.paracamplus.ilp1.interpreter.test.InterpreterTest {
@@ -120,4 +117,5 @@ public class InterpreterTest extends
 		}
 		return result;
 	}
+
 }

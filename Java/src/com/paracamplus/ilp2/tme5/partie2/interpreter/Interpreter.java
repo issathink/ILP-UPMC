@@ -1,20 +1,20 @@
-package com.paracamplus.ilp2.tme5.interpreter;
+package com.paracamplus.ilp2.tme5.partie2.interpreter;
 
 import com.paracamplus.ilp1.interpreter.interfaces.EvaluationException;
 import com.paracamplus.ilp1.interpreter.interfaces.IGlobalVariableEnvironment;
 import com.paracamplus.ilp1.interpreter.interfaces.ILexicalEnvironment;
 import com.paracamplus.ilp1.interpreter.interfaces.IOperatorEnvironment;
 import com.paracamplus.ilp2.interfaces.IASTfunctionDefinition;
-import com.paracamplus.ilp2.interfaces.IASTloop;
 import com.paracamplus.ilp2.interfaces.IASTprogram;
 import com.paracamplus.ilp2.tme5.DernierException;
-import com.paracamplus.ilp2.tme5.IASTdernier;
-import com.paracamplus.ilp2.tme5.IASTsuivant;
-import com.paracamplus.ilp2.tme5.IASTvisitor;
 import com.paracamplus.ilp2.tme5.SuivantException;
+import com.paracamplus.ilp2.tme5.partie2.IASTdernier;
+import com.paracamplus.ilp2.tme5.partie2.IASTloop;
+import com.paracamplus.ilp2.tme5.partie2.IASTsuivant;
+import com.paracamplus.ilp2.tme5.partie2.IASTvisitor;
 
-public class Interpreter extends com.paracamplus.ilp2.interpreter.Interpreter
-		implements
+public class Interpreter extends
+		com.paracamplus.ilp2.tme5.interpreter.Interpreter implements
 		IASTvisitor<Object, ILexicalEnvironment, EvaluationException> {
 
 	private static int NB_LOOP = 0;

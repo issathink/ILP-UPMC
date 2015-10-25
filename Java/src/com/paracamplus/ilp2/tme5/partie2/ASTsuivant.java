@@ -1,13 +1,14 @@
 package com.paracamplus.ilp2.tme5.partie2;
 
 import com.paracamplus.ilp1.ast.ASTexpression;
+import com.paracamplus.ilp1.interfaces.Inamed;
 import com.paracamplus.ilp2.interfaces.IASTvisitable;
 
 public class ASTsuivant extends ASTexpression implements IASTdernier, IASTvisitable{
 
-	private String etiquette;
+	private Inamed etiquette;
 	
-	public ASTsuivant(String etiquette) {
+	public ASTsuivant(Inamed etiquette) {
 		this.etiquette = etiquette;
 	}
 	
@@ -32,7 +33,7 @@ public class ASTsuivant extends ASTexpression implements IASTdernier, IASTvisita
 	}
 
 	@Override
-	public String getEtiquette() {
+	public Inamed getEtiquette() {
 		return etiquette;
 	}
 

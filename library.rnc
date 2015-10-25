@@ -1,0 +1,32 @@
+include "grammar1.rnc" {
+	program = element program {
+		functionDefinition*,
+		expression+
+	}
+}
+
+expression |= affectation
+| loop
+
+affectation = element affectation {
+	attribute name { xsd:Name - ( xsd:Name { pattern = "(ilp|ILP)" } ) },
+	element value { expression }
+}
+
+loop = element loop {
+	element condition { expression},
+	element body { expression+ }
+}
+
+functionDefinition = element functionDefinition{
+	attribute name{ xsd:Name - ( xsd:Name { pattern = "(ilp|ILP)" } ) },
+	element returnType {constant },
+	element argument {constant }*,
+	element body { expression+ }
+}
+
+invocationFunction = element invocationFunction {
+	attribute name{ xsd:Name - ( xsd:Name { pattern = "(ilp|ILP)" } ) },
+	element argument { expression }*
+}
+# end of grammar1-tme2.rnc

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <include href="grammar-tme5rng">
+    <define name="suivant">
+      <element name="suivant">
+        <attribute name="name">
+          <data type="Name">
+            <except>
+              <data type="Name">
+                <param name="pattern">(ilp|ILP)</param>
+              </data>
+            </except>
+          </data>
+        </attribute>
+        <empty/>
+      </element>
+    </define>
+    <define name="dernier">
+      <element name="dernier">
+        <attribute name="name">
+          <data type="Name">
+            <except>
+              <data type="Name">
+                <param name="pattern">(ilp|ILP)</param>
+              </data>
+            </except>
+          </data>
+        </attribute>
+        <empty/>
+      </element>
+    </define>
+    <define name="loop">
+      <element name="loop">
+        <attribute name="name">
+          <data type="Name">
+            <except>
+              <data type="Name">
+                <param name="pattern">(ilp|ILP)</param>
+              </data>
+            </except>
+          </data>
+        </attribute>
+        <element name="condition">
+          <ref name="expression"/>
+        </element>
+        <element name="body">
+          <oneOrMore>
+            <ref name="expression"/>
+          </oneOrMore>
+        </element>
+      </element>
+    </define>
+  </include>
+</grammar>

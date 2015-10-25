@@ -1,0 +1,13 @@
+include "grammar2.rnc"
+
+expression |= 
+	   suivant
+	| dernier
+
+suivant = element suivant {
+	empty
+}
+
+dernier = element dernier {
+	empty
+}

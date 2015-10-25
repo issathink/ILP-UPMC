@@ -1,8 +1,0 @@
-include "library.rnc"
-
-expression |= aMoinsQue
-
-aMoinsQue = element aMoinsQue {
-	element condition   { expression },
-   	element consequence { expression + }
-}

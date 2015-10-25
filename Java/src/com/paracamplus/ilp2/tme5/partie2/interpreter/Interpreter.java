@@ -32,7 +32,6 @@ public class Interpreter extends
 		loops.add(iast.getEtiquette().getName());
 
 		while (true) {
-			// System.out.println(loops);
 			Object condition = iast.getCondition().accept(this, lexenv);
 			if (condition instanceof Boolean) {
 				Boolean c = (Boolean) condition;
@@ -43,18 +42,13 @@ public class Interpreter extends
 			try {
 				iast.getBody().accept(this, lexenv);
 			} catch (DernierException e) {
-				System.out.println("Inloop : " + e.getMessage() + " "
-						+ e.getEtiquette().getName());
-
 				if (e.getEtiquette().getName()
 						.equals(loops.get(loops.size() - 1))) {
-					System.out.println("Je sors");
+					loops.remove(loops.size() - 1);
 					break;
 				} else
 					throw new DernierException(e.getEtiquette());
 			} catch (SuivantException e) {
-				System.out.println("Inloop: " + e.getMessage() + " "
-						+ e.getEtiquette().getName());
 				if (e.getEtiquette().getName()
 						.equals(loops.get(loops.size() - 1))) {
 					loops.remove(loops.size() - 1);
@@ -63,7 +57,6 @@ public class Interpreter extends
 					throw new SuivantException(e.getEtiquette());
 
 			} finally {
-				System.out.println("liste : " + loops);
 				if (loops.size() > 1)
 					loops.remove(loops.size() - 1);
 			}

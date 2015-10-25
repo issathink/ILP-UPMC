@@ -49,7 +49,7 @@
 									</binaryOperation>
 								</value>
 							</assignment>
-							<dernier name="interne" />
+							<dernier name="externe" />
 						</body>
 					</loop>
 				</body>

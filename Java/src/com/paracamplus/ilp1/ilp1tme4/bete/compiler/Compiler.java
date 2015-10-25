@@ -7,7 +7,6 @@ import java.util.Set;
 
 import com.paracamplus.ilp1.compiler.AssignDestination;
 import com.paracamplus.ilp1.compiler.CompilationException;
-import com.paracamplus.ilp1.compiler.FreeVariableCollector;
 import com.paracamplus.ilp1.compiler.NoDestination;
 import com.paracamplus.ilp1.compiler.interfaces.IASTCglobalVariable;
 import com.paracamplus.ilp1.compiler.interfaces.IASTCprogram;

@@ -15,7 +15,14 @@
 		<body>
 			<loop name="externe">
 				<condition>
-					<boolean value="true" />
+					<binaryOperation operator='&lt;'>
+						<leftOperand>
+							<variable name='x' />
+						</leftOperand>
+						<rightOperand>
+							<integer value='53' />
+						</rightOperand>
+					</binaryOperation>
 				</condition>
 				<body>
 					<loop name="interne">
@@ -41,9 +48,8 @@
 										</rightOperand>
 									</binaryOperation>
 								</value>
-
 							</assignment>
-							<dernier name="ww" />
+							<dernier name="interne" />
 						</body>
 					</loop>
 				</body>

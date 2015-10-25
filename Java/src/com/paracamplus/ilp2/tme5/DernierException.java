@@ -8,7 +8,7 @@ public class DernierException extends EvaluationException {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public DernierException(){
+	public DernierException() {
 		super("Break");
 	}
 

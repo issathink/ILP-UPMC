@@ -9,8 +9,6 @@ import com.paracamplus.ilp1.interpreter.interfaces.ILexicalEnvironment;
 import com.paracamplus.ilp1.interpreter.interfaces.IOperatorEnvironment;
 import com.paracamplus.ilp2.interfaces.IASTfunctionDefinition;
 import com.paracamplus.ilp2.interfaces.IASTprogram;
-import com.paracamplus.ilp2.tme5.DernierException;
-import com.paracamplus.ilp2.tme5.SuivantException;
 import com.paracamplus.ilp2.tme5.partie2.IASTdernier;
 import com.paracamplus.ilp2.tme5.partie2.IASTloop;
 import com.paracamplus.ilp2.tme5.partie2.IASTsuivant;
@@ -20,8 +18,7 @@ public class Interpreter extends
 		com.paracamplus.ilp2.tme5.interpreter.Interpreter implements
 		IASTvisitor<Object, ILexicalEnvironment, EvaluationException> {
 
-	private static int NB_LOOP = 0;
-	List<String> loops;
+	private List<String> loops;
 
 	public Interpreter(IGlobalVariableEnvironment globalVariableEnvironment,
 			IOperatorEnvironment operatorEnvironment) {
@@ -32,9 +29,10 @@ public class Interpreter extends
 	@Override
 	public Object visit(IASTloop iast, ILexicalEnvironment lexenv)
 			throws EvaluationException {
-		NB_LOOP++;
-		while (true) {
+		loops.add(iast.getEtiquette().getName());
 
+		while (true) {
+			// System.out.println(loops);
 			Object condition = iast.getCondition().accept(this, lexenv);
 			if (condition instanceof Boolean) {
 				Boolean c = (Boolean) condition;
@@ -45,28 +43,49 @@ public class Interpreter extends
 			try {
 				iast.getBody().accept(this, lexenv);
 			} catch (DernierException e) {
-				System.out.println("Inloop : " + e.getMessage());
-				break;
+				System.out.println("Inloop : " + e.getMessage() + " "
+						+ e.getEtiquette().getName());
+
+				if (e.getEtiquette().getName()
+						.equals(loops.get(loops.size() - 1))) {
+					System.out.println("Je sors");
+					break;
+				} else
+					throw new DernierException(e.getEtiquette());
 			} catch (SuivantException e) {
-				System.out.println("Inloop : " + e.getMessage());
-				continue;
+				System.out.println("Inloop: " + e.getMessage() + " "
+						+ e.getEtiquette().getName());
+				if (e.getEtiquette().getName()
+						.equals(loops.get(loops.size() - 1))) {
+					loops.remove(loops.size() - 1);
+					continue;
+				} else
+					throw new SuivantException(e.getEtiquette());
+
+			} finally {
+				System.out.println("liste : " + loops);
+				if (loops.size() > 1)
+					loops.remove(loops.size() - 1);
 			}
 		}
-		NB_LOOP--;
+
 		return Boolean.FALSE;
 	}
 
 	public Object visit(IASTdernier iast, ILexicalEnvironment lexenv)
 			throws EvaluationException, DernierException {
-		if (NB_LOOP > 0)
-			throw new DernierException();
-		else
-			throw new EvaluationException("break en dehors de la boucle.");
+		String loopName = iast.getEtiquette().getName();
+		if (!loops.contains(loopName))
+			throw new EvaluationException("Il n'y a pas de boucle: " + loopName);
+		throw new DernierException(iast.getEtiquette());
 	}
 
 	public Object visit(IASTsuivant iast, ILexicalEnvironment lexenv)
 			throws EvaluationException, SuivantException {
-		throw new SuivantException();
+		String loopName = iast.getEtiquette().getName();
+		if (!loops.contains(loopName))
+			throw new EvaluationException("Il n'y a pas de boucle: " + loopName);
+		throw new SuivantException(iast.getEtiquette());
 	}
 
 	@Override

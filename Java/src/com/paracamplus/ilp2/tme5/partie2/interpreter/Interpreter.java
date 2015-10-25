@@ -1,5 +1,8 @@
 package com.paracamplus.ilp2.tme5.partie2.interpreter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.paracamplus.ilp1.interpreter.interfaces.EvaluationException;
 import com.paracamplus.ilp1.interpreter.interfaces.IGlobalVariableEnvironment;
 import com.paracamplus.ilp1.interpreter.interfaces.ILexicalEnvironment;
@@ -18,10 +21,12 @@ public class Interpreter extends
 		IASTvisitor<Object, ILexicalEnvironment, EvaluationException> {
 
 	private static int NB_LOOP = 0;
+	List<String> loops;
 
 	public Interpreter(IGlobalVariableEnvironment globalVariableEnvironment,
 			IOperatorEnvironment operatorEnvironment) {
 		super(globalVariableEnvironment, operatorEnvironment);
+		loops = new ArrayList<String>();
 	}
 
 	@Override
@@ -40,10 +45,10 @@ public class Interpreter extends
 			try {
 				iast.getBody().accept(this, lexenv);
 			} catch (DernierException e) {
-				System.out.println("Inloop :" + e.getMessage());
+				System.out.println("Inloop : " + e.getMessage());
 				break;
 			} catch (SuivantException e) {
-				System.out.println("Inloop :" + e.getMessage());
+				System.out.println("Inloop : " + e.getMessage());
 				continue;
 			}
 		}

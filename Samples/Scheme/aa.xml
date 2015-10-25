@@ -13,35 +13,43 @@
 			</binding>
 		</bindings>
 		<body>
-			<loop>
+			<loop name="externe">
 				<condition>
-					<binaryOperation operator='&lt;'>
-						<leftOperand>
-							<variable name='x' />
-						</leftOperand>
-						<rightOperand>
-							<integer value='53' />
-						</rightOperand>
-					</binaryOperation>
+					<boolean value="true" />
 				</condition>
 				<body>
-					<assignment name='x'>
-						<value>
-							<binaryOperation operator='+'>
+					<loop name="interne">
+						<condition>
+							<binaryOperation operator='&lt;'>
 								<leftOperand>
 									<variable name='x' />
 								</leftOperand>
 								<rightOperand>
-									<integer value='1' />
+									<integer value='53' />
 								</rightOperand>
 							</binaryOperation>
-						</value>
-					</assignment>
+						</condition>
+						<body>
+							<assignment name='x'>
+								<value>
+									<binaryOperation operator='+'>
+										<leftOperand>
+											<variable name='x' />
+										</leftOperand>
+										<rightOperand>
+											<integer value='1' />
+										</rightOperand>
+									</binaryOperation>
+								</value>
+
+							</assignment>
+							<dernier name="ww" />
+						</body>
+					</loop>
 				</body>
 			</loop>
 			<variable name='x' />
-		    <dernier />
-		  
+
 		</body>
 	</block>
 </program>

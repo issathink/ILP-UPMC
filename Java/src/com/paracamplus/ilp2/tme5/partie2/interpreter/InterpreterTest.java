@@ -33,7 +33,7 @@ import com.paracamplus.ilp2.tme5.partie2.ParserFactory;
 public class InterpreterTest extends
 		com.paracamplus.ilp1.interpreter.test.InterpreterTest {
 
-	protected static String rngFileName = "Grammars/grammar-tme5.rng";
+	protected static String rngFileName = "Grammars/grammar2-tme5.rng";
 	protected static String samplesDirName = "Samples/Scheme";
 	protected static String pattern = "aa";
 

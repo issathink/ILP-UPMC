@@ -1,0 +1,9 @@
+include "grammar3.rnc"
+
+expression |= 
+       costart
+
+costart = element costart {
+    element function  { expression },
+    element arguments { expression * }
+}

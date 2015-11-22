@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="grammar3rng"/>
+  <define name="expression" combine="choice">
+    <ref name="costart"/>
+  </define>
+  <define name="costart">
+    <element name="costart">
+      <element name="function">
+        <ref name="expression"/>
+      </element>
+      <element name="arguments">
+        <zeroOrMore>
+          <ref name="expression"/>
+        </zeroOrMore>
+      </element>
+    </element>
+  </define>
+</grammar>

@@ -4,17 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import com.paracamplus.ilp1.ast.ASTvariable;
 import com.paracamplus.ilp1.interfaces.IASTexpression;
 import com.paracamplus.ilp1.interfaces.IASTinvocation;
-import com.paracamplus.ilp1.interfaces.IASTsequence;
-import com.paracamplus.ilp1.interfaces.IASTvariable;
 import com.paracamplus.ilp1.interpreter.Function;
 import com.paracamplus.ilp1.interpreter.interfaces.EvaluationException;
 import com.paracamplus.ilp1.interpreter.interfaces.IGlobalVariableEnvironment;
 import com.paracamplus.ilp1.interpreter.interfaces.ILexicalEnvironment;
 import com.paracamplus.ilp1.interpreter.interfaces.IOperatorEnvironment;
 import com.paracamplus.ilp1.interpreter.interfaces.Invocable;
+import com.paracamplus.ilp2.ast.ASTfunctionDefinition;
 import com.paracamplus.ilp2.interfaces.IASTfunctionDefinition;
 import com.paracamplus.ilp3.interfaces.IASTprogram;
 import com.paracamplus.ilp3.interpreter.primitive.Throw.ThrownException;
@@ -42,10 +40,11 @@ public class Interpreter extends com.paracamplus.ilp3.interpreter.Interpreter
 			System.out.println((obj == null) + " ; " + obj);
 			return obj;
 		} catch (ThrownException exc) {
-			System.out.println("Fuck1 + " + exc.getMessage());
+			System.out.println("ThrownException + " + exc.getMessage());
 			return exc.getThrownValue();
 		} catch (Exception exc) {
-			System.out.println("Fuck + " + exc.getLocalizedMessage());
+			System.out.println("Exception whatever + "
+					+ exc.getLocalizedMessage());
 			return exc;
 		}
 	}
@@ -71,26 +70,39 @@ public class Interpreter extends com.paracamplus.ilp3.interpreter.Interpreter
 
 		return instance;
 	}
-	
-    
-    @Override
-	public Object visit(IASTinvocation iast, ILexicalEnvironment lexenv) 
-            throws EvaluationException {
-        Object function = iast.getFunction().accept(this, lexenv);
-        
-        System.out.println("Cest quoi " + function);
-        if ( function instanceof Invocable ) {
-            Invocable f = (Invocable)function;
-            List<Object> args = new Vector<Object>();
-            for ( IASTexpression arg : iast.getArguments() ) {
-                Object value = arg.accept(this, lexenv);
-                args.add(value);
-            }
-            return f.apply(this, args.toArray());
-        } else {
-            String msg = "Cannot apply " + function;
-            throw new EvaluationException(msg);
-        }
-    }
+
+	@Override
+	public Object visit(IASTinvocation iast, ILexicalEnvironment lexenv)
+			throws EvaluationException {
+		Object function = iast.getFunction().accept(this, lexenv);
+		System.out.println("Invocation: " + (iast == null) + " ; " + iast);
+
+
+		System.out.println("Cest quoi " + function);
+		if (function instanceof Resume) {
+			Resume f = (Resume) function;
+			System.out.println("Instance of resume: "  + " ; Nom de la finction : " + f.getName());
+
+			List<Object> args = new Vector<Object>();
+			for (IASTexpression arg : iast.getArguments()) {
+				Object value = arg.accept(this, lexenv);
+				args.add(value);
+			}
+			return f.apply(this, args.toArray());
+		} else if (function instanceof Invocable){
+			System.out.println("Cest toujours des invocable");
+			Invocable f = (Invocable) function;
+			List<Object> args = new Vector<Object>();
+			for (IASTexpression arg : iast.getArguments()) {
+				Object value = arg.accept(this, lexenv);
+				args.add(value);
+			}
+			return f.apply(this, args.toArray());
+			
+		} else {
+			String msg = "Cannot apply " + iast;
+			throw new EvaluationException(msg);
+		}
+	}
 
 }

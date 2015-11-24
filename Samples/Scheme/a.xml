@@ -1,44 +1,47 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 
 <program><!-- test:name description='une fonction globale' -->
-    <functionDefinition name='cofunction'>
-        <variables></variables>
-        <body>
+	<functionDefinition name='cofunction'>
+		<variables></variables>
+		<body>
+			<integer value="2" />
+			<!--<invocation> <function> <variable name='print' /> </function> <arguments> 
+				<string>LIGNE 12</string> </arguments> </invocation> -->
+			<invocation>
+				<function>
+					<variable name='print' />
+				</function>
+				<arguments>
+					<string>Hello</string>
+				</arguments>
+			</invocation>
 
-            <invocation>
-                <function>
-                    <variable name='print' />
-                </function>
-                <arguments>
-                    <string>LIGNE 12</string>
-                </arguments>
-            </invocation>
-        </body>
-    </functionDefinition>
-    <block>
-        <bindings>
-            <binding>
-                <variable name="x"></variable>
-                <initialisation>
-                    <costart>
-                        <function>
-                            <variable name='cofunction' />
-                        </function>
-                        <arguments></arguments>
-                    </costart>
-                </initialisation>
-            </binding>
-        </bindings>
-        <body>
-
-            <invocation>
-                <function>
-                    <variable name='resume' />
-                </function>
-                <arguments>
-                    <variable name="x"></variable>
-                </arguments>
-            </invocation>
-        </body>
-    </block>
+			<string>Hello</string>
+		</body>
+	</functionDefinition>
+	<block>
+		<bindings>
+			<binding>
+				<variable name="x"></variable>
+				<initialisation>
+					<costart>
+						<function>
+							<variable name='cofunction' />
+						</function>
+						<arguments></arguments>
+					</costart>
+				</initialisation>
+			</binding>
+		</bindings>
+		<body>
+			<invocation>
+				<function>
+					<variable name='resume' />
+				</function>
+				<arguments>
+					<variable name="x"></variable>
+				</arguments>
+			</invocation>
+		</body>
+	</block>
 </program>

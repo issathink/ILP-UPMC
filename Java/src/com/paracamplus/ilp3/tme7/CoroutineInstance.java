@@ -30,16 +30,18 @@ public class CoroutineInstance extends Thread {
 		System.out.println("Start running coroutine.");
 		try {
 			semCor.acquire();
-			
-			if(function instanceof Invocable) {
-				System.out.println(function + " ; is " + (function==null) + "; args : " + arguments);
+
+			if (function instanceof Invocable) {
+				System.out.println(function + " ; is " + (function == null)
+						+ "; args : " + arguments + " ; interpreter "
+						+ (interpreter == null) + " ; args " + (arguments.toArray() == null));
 				((Invocable) function).apply(interpreter, arguments.toArray());
 			}
-				 
+
 			setFinisihed(true);
 			semMain.release();
 		} catch (EvaluationException e) {
-			System.out.println("what da fuck");
+			System.out.println("Holly molly");
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			System.out.println("I'm not supposed to be interrupted.");
@@ -58,7 +60,7 @@ public class CoroutineInstance extends Thread {
 	public boolean getFinished() {
 		return isFinished;
 	}
-	
+
 	public void setFinisihed(boolean isFinished) {
 		this.isFinished = isFinished;
 	}

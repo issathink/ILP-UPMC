@@ -35,7 +35,7 @@ public class Resume extends UnaryPrimitive {
 			CoroutineInstance instance = (CoroutineInstance) arg;
 
 			instance.getSemaphoreCor().release();
-			if (!instance.getFinished()) {
+			if (! instance.getFinished()) {
 				System.out.println("Je lance la coroutine");
 				instance.start();
 			}

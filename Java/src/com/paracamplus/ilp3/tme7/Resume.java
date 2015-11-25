@@ -8,7 +8,6 @@ public class Resume extends UnaryPrimitive {
 
 	public Resume(String name) {
 		super(name);
-		System.out.println("Create resume");
 	}
 
 	@Override
@@ -22,16 +21,13 @@ public class Resume extends UnaryPrimitive {
 		if (argument.length > 1)
 			throw new EvaluationException(
 					"Ce message ne doit pas etre affiche.");
-		System.out.println("Appel Apply resume, arg length " + argument.length);
 		return apply(argument[0]);
 	}
 
 	@Override
 	public Object apply(Object arg) throws EvaluationException {
 
-		System.out.println("Apply resume");
 		if (arg instanceof CoroutineInstance) {
-			System.out.println("Je suis tombe sur une coroutine");
 			CoroutineInstance instance = (CoroutineInstance) arg;
 
 			instance.getSemaphoreCor().release();

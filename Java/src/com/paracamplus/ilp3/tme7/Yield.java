@@ -9,7 +9,6 @@ public class Yield extends Primitive {
 
 	public Yield(String name) {
 		super(name);
-		System.out.println("Create Yield");
 	}
 
 	@Override

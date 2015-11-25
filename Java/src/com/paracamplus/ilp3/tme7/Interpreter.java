@@ -6,13 +6,11 @@ import java.util.Vector;
 
 import com.paracamplus.ilp1.interfaces.IASTexpression;
 import com.paracamplus.ilp1.interfaces.IASTinvocation;
-import com.paracamplus.ilp1.interpreter.Function;
 import com.paracamplus.ilp1.interpreter.interfaces.EvaluationException;
 import com.paracamplus.ilp1.interpreter.interfaces.IGlobalVariableEnvironment;
 import com.paracamplus.ilp1.interpreter.interfaces.ILexicalEnvironment;
 import com.paracamplus.ilp1.interpreter.interfaces.IOperatorEnvironment;
 import com.paracamplus.ilp1.interpreter.interfaces.Invocable;
-import com.paracamplus.ilp2.ast.ASTfunctionDefinition;
 import com.paracamplus.ilp2.interfaces.IASTfunctionDefinition;
 import com.paracamplus.ilp3.interfaces.IASTprogram;
 import com.paracamplus.ilp3.interpreter.primitive.Throw.ThrownException;
@@ -53,7 +51,6 @@ public class Interpreter extends com.paracamplus.ilp3.interpreter.Interpreter
 	public Object visit(ASTcostart iast, ILexicalEnvironment data)
 			throws EvaluationException {
 
-		System.out.println(">>> Je visite noeud ASTcostart");
 		Object function = iast.getFunction().accept(this, data);
 		List<Object> args = new ArrayList<Object>();
 		for (IASTexpression arg : iast.getArguments()) {
@@ -61,27 +58,17 @@ public class Interpreter extends com.paracamplus.ilp3.interpreter.Interpreter
 			args.add(value);
 		}
 
-		IASTexpression seq = ((Function) function).getBody();
-		System.out.println("Args of coroutine " + args + ", functionBody: "
-				+ seq);
-		CoroutineInstance instance = new CoroutineInstance(function, args, this);
-
-		System.out.println(instance + " , " + (instance == null));
-
-		return instance;
+		return new CoroutineInstance(function, args, this);
 	}
 
 	@Override
 	public Object visit(IASTinvocation iast, ILexicalEnvironment lexenv)
 			throws EvaluationException {
 		Object function = iast.getFunction().accept(this, lexenv);
-		System.out.println("Invocation: " + (iast == null) + " ; " + iast);
-
 
 		System.out.println("Cest quoi " + function);
 		if (function instanceof Resume) {
 			Resume f = (Resume) function;
-			System.out.println("Instance of resume: "  + " ; Nom de la finction : " + f.getName());
 
 			List<Object> args = new Vector<Object>();
 			for (IASTexpression arg : iast.getArguments()) {
@@ -89,8 +76,7 @@ public class Interpreter extends com.paracamplus.ilp3.interpreter.Interpreter
 				args.add(value);
 			}
 			return f.apply(this, args.toArray());
-		} else if (function instanceof Invocable){
-			System.out.println("Cest toujours des invocable");
+		} else if (function instanceof Invocable) {
 			Invocable f = (Invocable) function;
 			List<Object> args = new Vector<Object>();
 			for (IASTexpression arg : iast.getArguments()) {
@@ -98,7 +84,7 @@ public class Interpreter extends com.paracamplus.ilp3.interpreter.Interpreter
 				args.add(value);
 			}
 			return f.apply(this, args.toArray());
-			
+
 		} else {
 			String msg = "Cannot apply " + iast;
 			throw new EvaluationException(msg);

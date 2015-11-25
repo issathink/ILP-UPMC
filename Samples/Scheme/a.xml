@@ -4,19 +4,42 @@
 	<functionDefinition name='cofunction'>
 		<variables></variables>
 		<body>
-			<integer value="2" />
-			<!--<invocation> <function> <variable name='print' /> </function> <arguments> 
-				<string>LIGNE 12</string> </arguments> </invocation> -->
 			<invocation>
 				<function>
 					<variable name='print' />
 				</function>
 				<arguments>
-					<string>Hello</string>
+					<string>LIGNE 10 </string>
 				</arguments>
 			</invocation>
-
-			<string>Hello</string>
+			<invocation>
+				<function>
+					<variable name='yield' />
+				</function>
+				<arguments></arguments>
+			</invocation>
+			<invocation>
+				<function>
+					<variable name='print' />
+				</function>
+				<arguments>
+					<string>LIGNE 11 </string>
+				</arguments>
+			</invocation>
+			<invocation>
+				<function>
+					<variable name='yield' />
+				</function>
+				<arguments></arguments>
+			</invocation>
+			<invocation>
+				<function>
+					<variable name='print' />
+				</function>
+				<arguments>
+					<string>LIGNE 12 </string>
+				</arguments>
+			</invocation>
 		</body>
 	</functionDefinition>
 	<block>
@@ -34,6 +57,46 @@
 			</binding>
 		</bindings>
 		<body>
+			<invocation>
+				<function>
+					<variable name='print' />
+				</function>
+				<arguments>
+					<string>LIGNE 1 </string>
+				</arguments>
+			</invocation>
+			<invocation>
+				<function>
+					<variable name='resume' />
+				</function>
+				<arguments>
+					<variable name="x"></variable>
+				</arguments>
+			</invocation>
+			<invocation>
+				<function>
+					<variable name='print' />
+				</function>
+				<arguments>
+					<string>LIGNE 2 </string>
+				</arguments>
+			</invocation>
+			<invocation>
+				<function>
+					<variable name='resume' />
+				</function>
+				<arguments>
+					<variable name="x"></variable>
+				</arguments>
+			</invocation>
+			<invocation>
+				<function>
+					<variable name='print' />
+				</function>
+				<arguments>
+					<string>LIGNE 3 </string>
+				</arguments>
+			</invocation>
 			<invocation>
 				<function>
 					<variable name='resume' />

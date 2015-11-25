@@ -22,7 +22,6 @@ public class CoroutineInstance extends Thread {
 		this.isFinished = false;
 		semMain = new Semaphore(0);
 		semCor = new Semaphore(0);
-		System.out.println("Coroutine cree au calme.");
 	}
 
 	@Override
@@ -32,9 +31,6 @@ public class CoroutineInstance extends Thread {
 			semCor.acquire();
 
 			if (function instanceof Invocable) {
-				System.out.println(function + " ; is " + (function == null)
-						+ "; args : " + arguments + " ; interpreter "
-						+ (interpreter == null) + " ; args " + (arguments.toArray() == null));
 				((Invocable) function).apply(interpreter, arguments.toArray());
 			}
 
